@@ -39,75 +39,83 @@
 // add.addEventListener("click", handleAdd);
 // minus.addEventListener("click", handleMinus);
 
-//////////////////////// For the ToDo List App ///////////////////////////////
-import { createStore } from "redux";
+//-------------------------- For the ToDo List App --------------------------//
 
-const ADD_TODO = "ADD_TODO";
-const DELETE_TODO = "DELETE_TODO";
+// import { createStore } from "redux";
 
-const form = document.querySelector("form");
-const input = document.querySelector("input");
-const ul = document.querySelector("ul");
+// const ADD_TODO = "ADD_TODO";
+// const DELETE_TODO = "DELETE_TODO";
 
-const addToDo = (text) => {
-  return { type: ADD_TODO, text };
-};
+// const form = document.querySelector("form");
+// const input = document.querySelector("input");
+// const ul = document.querySelector("ul");
 
-const deleteToDo = (id) => {
-  return { type: DELETE_TODO, id };
-};
+// const addToDo = (text) => {
+//   return { type: ADD_TODO, text };
+// };
 
-const reducer = (state = [], action) => {
-  switch (action.type) {
-    // Must NOT using Mutation, new array should be returned
-    case ADD_TODO:
-      const newToDoObj = { text: action.text, id: Date.now() };
-      return [newToDoObj, ...state];
-    case DELETE_TODO:
-      const cleaned = state.filter((todo) => todo.id !== action.id);
-      return cleaned;
-    default:
-      return state;
-  }
-};
+// const deleteToDo = (id) => {
+//   return { type: DELETE_TODO, id };
+// };
 
-const store = createStore(reducer);
+// const reducer = (state = [], action) => {
+//   switch (action.type) {
+//     // Must NOT using Mutation, new array should be returned
+//     case ADD_TODO:
+//       const newToDoObj = { text: action.text, id: Date.now() };
+//       return [newToDoObj, ...state];
+//     case DELETE_TODO:
+//       const cleaned = state.filter((todo) => todo.id !== action.id);
+//       return cleaned;
+//     default:
+//       return state;
+//   }
+// };
 
-store.subscribe(() => {
-  console.log(store.getState());
-});
+// const store = createStore(reducer);
 
-const dispatchAddToDo = (text) => {
-  store.dispatch(addToDo(text));
-};
+// store.subscribe(() => {
+//   console.log(store.getState());
+// });
 
-const dispatchDeleteToDo = (event) => {
-  const id = parseInt(event.target.parentNode.id); // id coming from html is string type
-  store.dispatch(deleteToDo(id));
-};
+// const dispatchAddToDo = (text) => {
+//   store.dispatch(addToDo(text));
+// };
 
-const paintToDos = () => {
-  const toDos = store.getState();
-  ul.innerHTML = "";
-  toDos.forEach((toDo) => {
-    const li = document.createElement("li");
-    const btn = document.createElement("button");
-    btn.innerText = "DELETE";
-    btn.addEventListener("click", dispatchDeleteToDo);
-    li.id = toDo.id;
-    li.innerText = toDo.text;
-    li.appendChild(btn);
-    ul.appendChild(li);
-  });
-};
+// const dispatchDeleteToDo = (event) => {
+//   const id = parseInt(event.target.parentNode.id); // id coming from html is string type
+//   store.dispatch(deleteToDo(id));
+// };
 
-store.subscribe(paintToDos); // Painting the list for every changes
+// const paintToDos = () => {
+//   const toDos = store.getState();
+//   ul.innerHTML = "";
+//   toDos.forEach((toDo) => {
+//     const li = document.createElement("li");
+//     const btn = document.createElement("button");
+//     btn.innerText = "DELETE";
+//     btn.addEventListener("click", dispatchDeleteToDo);
+//     li.id = toDo.id;
+//     li.innerText = toDo.text;
+//     li.appendChild(btn);
+//     ul.appendChild(li);
+//   });
+// };
 
-const onSubmit = (e) => {
-  e.preventDefault();
-  const toDo = input.value;
-  input.value = "";
-  dispatchAddToDo(toDo);
-};
+// store.subscribe(paintToDos); // Painting the list for every changes
 
-form.addEventListener("submit", onSubmit);
+// const onSubmit = (e) => {
+//   e.preventDefault();
+//   const toDo = input.value;
+//   input.value = "";
+//   dispatchAddToDo(toDo);
+// };
+
+// form.addEventListener("submit", onSubmit);
+
+//-------------------------- React Redux ------------------------------- //
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
+
+ReactDOM.render(<App></App>, document.getElementById("root"));
