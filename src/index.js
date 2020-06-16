@@ -59,10 +59,11 @@ const deleteToDo = (id) => {
 
 const reducer = (state = [], action) => {
   switch (action.type) {
+    // Must NOT using Mutation, new array should be returned
     case ADD_TODO:
       return [{ text: action.text, id: Date.now() }, ...state];
     case DELETE_TODO:
-      return [];
+      return state.filter((todo) => todo.id !== action.id);
     default:
       return state;
   }
@@ -79,7 +80,7 @@ const dispatchAddToDo = (text) => {
 };
 
 const dispatchDeleteToDo = (event) => {
-  const id = event.target.parentNode.id;
+  const id = parseInt(event.target.parentNode.id); // id coming from html is string type
   store.dispatch(deleteToDo(id));
 };
 
