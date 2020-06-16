@@ -61,9 +61,11 @@ const reducer = (state = [], action) => {
   switch (action.type) {
     // Must NOT using Mutation, new array should be returned
     case ADD_TODO:
-      return [{ text: action.text, id: Date.now() }, ...state];
+      const newToDoObj = { text: action.text, id: Date.now() };
+      return [newToDoObj, ...state];
     case DELETE_TODO:
-      return state.filter((todo) => todo.id !== action.id);
+      const cleaned = state.filter((todo) => todo.id !== action.id);
+      return cleaned;
     default:
       return state;
   }
@@ -99,7 +101,7 @@ const paintToDos = () => {
   });
 };
 
-store.subscribe(paintToDos);
+store.subscribe(paintToDos); // Painting the list for every changes
 
 const onSubmit = (e) => {
   e.preventDefault();
